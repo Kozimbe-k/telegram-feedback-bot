@@ -3,4 +3,4 @@
 [deploy]
 startCommand = "npm start"
 restartPolicyType = "ALWAYS"
-restartPolicyMaxRetries = 0
+restartPolicyMaxRetries = 10
