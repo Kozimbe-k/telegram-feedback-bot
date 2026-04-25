@@ -14,6 +14,7 @@ function getSessionFilename(sessionKey) {
 export function getSessionKey(ctx) {
   const fromId = ctx.from?.id;
   const chatId = ctx.chat?.id ?? ctx.from?.id;
+  console.log("getSessionKey →", { fromId, chatId });
 
   if (!fromId) {
     return null;

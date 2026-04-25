@@ -140,6 +140,7 @@ function formatAdminFeedbackMessage(payload) {
 
 async function finalizeFeedback(ctx, finalMessageKey) {
   const language = getLanguage(ctx);
+  console.log("finalizeFeedback called, feedback:", ctx.session.feedback);
   const payload = {
     createdAt: new Date().toISOString(),
     language,

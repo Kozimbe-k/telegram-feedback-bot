@@ -28,3 +28,15 @@ main().catch((error) => {
   console.error("Failed to read feedback log.", error.message);
   process.exitCode = 1;
 });
+
+
+try {
+  const raw = await readFile("data/feedback-log.jsonl", "utf8");
+  // ... parse and display
+} catch (err) {
+  if (err.code === "ENOENT") {
+    console.log("No feedback received yet.");
+  } else {
+    throw err;
+  }
+}
