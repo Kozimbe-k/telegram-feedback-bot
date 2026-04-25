@@ -12,11 +12,14 @@ function getSessionFilename(sessionKey) {
 }
 
 export function getSessionKey(ctx) {
-  if (!ctx.from?.id || !ctx.chat?.id) {
+  const fromId = ctx.from?.id;
+  const chatId = ctx.chat?.id ?? ctx.from?.id;
+
+  if (!fromId) {
     return null;
   }
 
-  return `${ctx.from.id}:${ctx.chat.id}`;
+  return `${fromId}:${chatId}`;
 }
 
 export async function loadSession(sessionKey, encryptionKey, createSession) {
