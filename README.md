@@ -23,6 +23,7 @@ The bot:
 - Stores only the minimum feedback data needed for follow-up.
 - Can send each completed feedback to your Telegram admin chat in readable form.
 - Keeps phone numbers masked in admin notifications by default.
+- Persists active survey sessions in `DATA_DIR`, so short service restarts do not reset users to the first step.
 
 ## Setup
 

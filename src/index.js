@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { Markup, Telegraf, session } from "telegraf";
+import { Markup, Telegraf } from "telegraf";
 import { getText, LANGUAGE_LABELS, SUPPORTED_LANGUAGES } from "./i18n.js";
 import {
   extractPhoneFromMessage,
@@ -10,6 +10,7 @@ import {
   validateName,
   validateRequiredComment
 } from "./security.js";
+import { getSessionKey, loadSession, saveSession } from "./session-store.js";
 import { saveFeedback } from "./storage.js";
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
@@ -164,7 +165,18 @@ async function finalizeFeedback(ctx, finalMessageKey) {
   await ctx.reply(getText(language, finalMessageKey), Markup.removeKeyboard());
 }
 
-bot.use(session({ defaultSession: createSession }));
+bot.use(async (ctx, next) => {
+  const sessionKey = getSessionKey(ctx);
+  ctx.session = sessionKey
+    ? await loadSession(sessionKey, encryptionKey, createSession)
+    : createSession();
+
+  await next();
+
+  if (sessionKey) {
+    await saveSession(sessionKey, ctx.session, encryptionKey);
+  }
+});
 
 bot.use(async (ctx, next) => {
   if (ctx.chat?.type !== "private") {
