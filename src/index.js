@@ -44,7 +44,7 @@ function languageKeyboard() {
     SUPPORTED_LANGUAGES.map((language) =>
       Markup.button.callback(LANGUAGE_LABELS[language], `lang:${language}`)
     ),
-    { columns: 1 }
+    { columns: 3 }
   );
 }
 
