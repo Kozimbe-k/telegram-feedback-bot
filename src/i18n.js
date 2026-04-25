@@ -94,7 +94,7 @@ export const TEXTS = {
 };
 
 export function getText(language, key, ...args) {
-  const lang = SUPPORTED_LANGUAGES.includes(language) ? language : "en";
+  const lang = SUPPORTED_LANGUAGES.includes(language) ? language : "en, ru, uz";
   const value = TEXTS[lang][key];
   return typeof value === "function" ? value(...args) : value;
 }
