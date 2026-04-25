@@ -190,7 +190,7 @@ bot.use(async (ctx, next) => {
 
 bot.start(async (ctx) => {
   ctx.session = createSession();
-  await ctx.reply(getText("en", "chooseLanguage"), languageKeyboard());
+  await ctx.reply(getText("en, ru, uz", "chooseLanguage"), languageKeyboard());
 });
 
 bot.command("cancel", async (ctx) => {
