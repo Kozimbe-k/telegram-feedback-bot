@@ -209,7 +209,7 @@ bot.action(/lang:(en|ru|uz)/, async (ctx) => {
   ctx.session.step = "ask_name";
 
   await ctx.answerCbQuery();
-  await ctx.editMessageReplyMarkup(undefined).catch(() => {});
+  await ctx.editMessageReplyMarkup(undefined).catch(() => { });
   await ctx.reply(getText(language, "askName"), Markup.removeKeyboard());
 });
 
@@ -232,7 +232,7 @@ bot.action(/manager:(\d+)/, async (ctx) => {
   ctx.session.step = "ask_manager_rating";
 
   await ctx.answerCbQuery();
-  await ctx.editMessageReplyMarkup(undefined).catch(() => {});
+  await ctx.editMessageReplyMarkup(undefined).catch(() => { });
   await ctx.reply(
     getText(language, "askManagerRating", manager),
     ratingKeyboard("manager_rating")
@@ -250,7 +250,7 @@ bot.action(/manager_rating:([1-5])/, async (ctx) => {
   ctx.session.step = "ask_manager_comment";
 
   await ctx.answerCbQuery();
-  await ctx.editMessageReplyMarkup(undefined).catch(() => {});
+  await ctx.editMessageReplyMarkup(undefined).catch(() => { });
   await ctx.reply(getText(language, "askManagerComment"));
 });
 
@@ -265,7 +265,7 @@ bot.action(/service_rating:([1-5])/, async (ctx) => {
   ctx.session.step = "ask_service_comment";
 
   await ctx.answerCbQuery();
-  await ctx.editMessageReplyMarkup(undefined).catch(() => {});
+  await ctx.editMessageReplyMarkup(undefined).catch(() => { });
   await ctx.reply(getText(language, "askServiceComment"));
 });
 
@@ -280,7 +280,7 @@ bot.action(/return:(yes|no)/, async (ctx) => {
   ctx.session.feedback.willWorkAgain = willWorkAgain;
 
   await ctx.answerCbQuery();
-  await ctx.editMessageReplyMarkup(undefined).catch(() => {});
+  await ctx.editMessageReplyMarkup(undefined).catch(() => { });
 
   if (willWorkAgain) {
     await finalizeFeedback(ctx, "finalThanksYes");
@@ -301,12 +301,14 @@ bot.on("message", async (ctx) => {
   }
 
   if (step === "ask_name") {
-    const name = validateName(ctx.message.text);
-    if (!name) {
+    const rawText = ctx.message?.text?.trim();
+
+    if (!rawText) {
       await ctx.reply(getText(language, "invalidName"));
       return;
     }
 
+    const name = validateName(rawText);
     ctx.session.feedback.name = name;
     ctx.session.step = "ask_phone";
 
