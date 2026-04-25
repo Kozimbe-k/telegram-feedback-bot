@@ -90,7 +90,7 @@ async function resetToLanguageChoice(ctx, noticeKey = null) {
     await ctx.reply(getText("en", noticeKey));
   }
 
-  await ctx.reply(getText("en", "chooseLanguage"), languageKeyboard());
+  await ctx.reply(getText("en, ru, uz", "chooseLanguage"), languageKeyboard());
 }
 
 async function askManagerQuestion(ctx) {
