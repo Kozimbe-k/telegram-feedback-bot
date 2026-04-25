@@ -297,7 +297,10 @@ bot.on("message", async (ctx) => {
   const step = ctx.session.step;
 
   if (step === "choose_language") {
-    await ctx.reply(getText("en", "chooseLanguage"), languageKeyboard());
+    await ctx.reply(
+      `${getText("en", "chooseLanguage")}\n${getText("ru", "chooseLanguage")}\n${getText("uz", "chooseLanguage")}`,
+      languageKeyboard()
+    );
     return;
   }
 
@@ -382,7 +385,10 @@ bot.on("message", async (ctx) => {
   const fallback = sanitizeText(ctx.message.text || "");
   if (fallback === "/start") {
     ctx.session = createSession();
-    await ctx.reply(getText("en", "chooseLanguage"), languageKeyboard());
+    await ctx.reply(
+      `${getText("en", "chooseLanguage")}\n${getText("ru", "chooseLanguage")}\n${getText("uz", "chooseLanguage")}`,
+      languageKeyboard()
+    );
     return;
   }
 
